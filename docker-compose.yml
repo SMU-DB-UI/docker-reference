@@ -1,0 +1,88 @@
+# version: "3.1"
+# services:
+#   db:
+#     image: mysql:5.7
+#     container_name: backend_db
+#     restart: always
+#     volumes:
+#       - ./data:/var/lib/mysql
+#     environment:
+#       - MYSQL_ROOT_PASSWORD: abc123
+#       - MYSQL_DATABASE: project
+#       - MYSQL_USER: webuser
+#       - MYSQL_PASSWORD: abc123
+
+# volumes:
+#   mysql_volume:
+
+version: "3.3"
+
+# services:
+  # db:
+  #   image: mysql:5.7
+  #   volumes:
+  #     - db_data:/var/lib/mysql
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: abc123
+  #     MYSQL_DATABASE: our_project
+  #     MYSQL_USER: web_user
+  #     MYSQL_PASSWORD: abc123
+  #   ports:
+  #     - "3306:3306"
+
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'user'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'password'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '13306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - db_vol:/var/lib/mysql
+
+
+#  This is the working one !!!!!!
+  api:
+    image: node:11
+    volumes:
+      - ./src:/usr/src/app
+      - /usr/src/app/node_modules
+    working_dir: /usr/src/app
+    depends_on:
+      - db
+    command: bash -c "npm install && npm run dev"
+    ports: 
+      - 3000:3000
+
+  # api:
+  #   image: express-app
+  #   build: ./src/.
+  #   depends_on: 
+  #     - db
+  #   networks:
+  #     - backend
+  #   volumes:
+  #     - ./src:/usr/src/app
+  #     - /usr/src/app/node_modules
+  #   ports:
+  #     - "3000:3000"
+  #   command: npm install
+  #   command: npm run dev
+
+volumes:
+  db_vol: 
+
+
