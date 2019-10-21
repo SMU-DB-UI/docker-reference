@@ -52,6 +52,8 @@ services:
       # Where our data will be persisted
     volumes:
       - db_vol:/var/lib/mysql
+    networks:
+      - backend
 
 
 #  This is the working one !!!!!!
@@ -66,6 +68,11 @@ services:
     command: bash -c "npm install && npm run dev"
     ports: 
       - 3000:3000
+    networks:
+      - backend
+
+networks: 
+  backend:
 
   # api:
   #   image: express-app
