@@ -1,35 +1,8 @@
-# version: "3.1"
-# services:
-#   db:
-#     image: mysql:5.7
-#     container_name: backend_db
-#     restart: always
-#     volumes:
-#       - ./data:/var/lib/mysql
-#     environment:
-#       - MYSQL_ROOT_PASSWORD: abc123
-#       - MYSQL_DATABASE: project
-#       - MYSQL_USER: webuser
-#       - MYSQL_PASSWORD: abc123
 
-# volumes:
-#   mysql_volume:
 
 version: "3.3"
 
-# services:
-  # db:
-  #   image: mysql:5.7
-  #   volumes:
-  #     - db_data:/var/lib/mysql
-  #   restart: always
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: abc123
-  #     MYSQL_DATABASE: our_project
-  #     MYSQL_USER: web_user
-  #     MYSQL_PASSWORD: abc123
-  #   ports:
-  #     - "3306:3306"
+
 
 services:
   db:
@@ -67,21 +40,7 @@ services:
     ports: 
       - 3000:3000
 
-  # api:
-  #   image: express-app
-  #   build: ./src/.
-  #   depends_on: 
-  #     - db
-  #   networks:
-  #     - backend
-  #   volumes:
-  #     - ./src:/usr/src/app
-  #     - /usr/src/app/node_modules
-  #   ports:
-  #     - "3000:3000"
-  #   command: npm install
-  #   command: npm run dev
-
+ 
 volumes:
   db_vol: 
 
